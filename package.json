@@ -1,0 +1,27 @@
+{
+  "name": "debian-image-builder",
+  "version": "0.0.0",
+  "description": "build Debian disk images, with Docker",
+  "bin": "./build",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "example": "./build --docker --input examples/simple --output output"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ahdinosaur/debian-image-builder.git"
+  },
+  "keywords": [
+    "debian",
+    "vmdb2",
+    "vmdebootrap"
+  ],
+  "author": "ahdinosaur",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ahdinosaur/debian-image-builder/issues"
+  },
+  "homepage": "https://github.com/ahdinosaur/debian-image-builder#readme"
+}
