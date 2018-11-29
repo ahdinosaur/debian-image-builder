@@ -80,6 +80,7 @@ Usage:
 
     --input <path>: required directory of input image spec
     --output <path>: required directory to output build results
+    --name <name>: optional name of image
 
   Flags:
 
@@ -88,7 +89,7 @@ Usage:
 
   Examples:
 
-    debian-image-builder --input ./examples/simple --output ./output --docker
+    debian-image-builder --docker --input ./examples/simple --output ./output
 EOF
   exit 1
 fi

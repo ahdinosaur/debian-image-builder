@@ -1,7 +1,7 @@
 {
   "name": "debian-image-builder",
   "version": "0.0.0",
-  "description": "build Debian disk images, with Docker",
+  "description": "build Debian disk images (with Docker)",
   "bin": "./build",
   "directories": {
     "example": "examples"
