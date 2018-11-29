@@ -27,7 +27,8 @@ steps:
       - linux-image-amd64
     fs-tag: root-fs
 
+  # how to configure your image
   - shell: |
-      echo Disk usage of this installation:
-      du -sh "$ROOT"
+      echo "apatosaurus" > "${ROOT?}/etc/hostname"
+      install -m 644 -o root -g root motd "${ROOT?}/etc/motd"
     root-fs: root-fs
