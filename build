@@ -98,16 +98,16 @@ then
   NAME="$(basename "${INPUT}")"
 fi
 
-echo ARGUMENTS: $ARGUMENTS
-echo CWD: $CWD
-echo DIRNAME ${DIRNAME}
-echo PATH: $PATH
+# echo ARGUMENTS: $ARGUMENTS
+# echo CWD: $CWD
+# echo DIRNAME ${DIRNAME}
+# echo PATH: $PATH
 
-echo DOCKER: $DOCKER
-echo HELP: $HELP
-echo INPUT: $INPUT
-echo OUTPUT: $OUTPUT
-echo NAME ${NAME}
+# echo DOCKER: $DOCKER
+# echo HELP: $HELP
+# echo INPUT: $INPUT
+# echo OUTPUT: $OUTPUT
+# echo NAME ${NAME}
 
 if [ "${DOCKER}" = "y" ]
 then
@@ -119,6 +119,8 @@ else
     vmdb2 \
       --output "$CWD/$OUTPUT/$NAME.img" \
       --log "$CWD/$OUTPUT/$NAME.log" \
-      "${CWD}/${INPUT}/spec.yml"
-  echo wait
+      "${CWD}/${INPUT}/spec.yml" &
+  build_pid=$!
+  sleep 1
+  tail -f -n +0 --pid=$build_pid $CWD/$OUTPUT/$NAME.log
 fi

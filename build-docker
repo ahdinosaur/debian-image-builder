@@ -25,6 +25,7 @@ INPUT_NAME=name
 
 IMAGE_NAME=${IMAGE_NAME:-debian_image_builder}
 CONTAINER_NAME=${CONTAINER_NAME:-debian_image_builder_work}
+PRESERVE_CONTAINER=0
 CONTAINER_EXISTS=$($DOCKER ps -a --filter name="$CONTAINER_NAME" -q)
 CONTAINER_RUNNING=$($DOCKER ps --filter name="$CONTAINER_NAME" -q)
 
@@ -83,9 +84,8 @@ time $DOCKER run --name "${CONTAINER_NAME}" --privileged \
   ${IMAGE_NAME} \
   bash -e -o errexit -o pipefail -o noclobber -o nounset -c "
     dpkg-reconfigure qemu-user-static;
-    cd /app; ./build ${NEXT_ARGUMENTS} &&
-    echo wait
-  " &
+    cd /app; ./build ${NEXT_ARGUMENTS};
+  " || true &
 wait "$!"
 echo waited
 
