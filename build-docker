@@ -90,7 +90,7 @@ wait "$!"
 echo waited
 
 echo "copying results from output/"
-$DOCKER cp "${CONTAINER_NAME}":/app/output "${OUTPUT}"
+$DOCKER cp "${CONTAINER_NAME}":/app/output/. "${OUTPUT}"
 ls -lah output
 
 # cleanup
