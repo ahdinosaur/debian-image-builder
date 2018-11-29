@@ -115,7 +115,8 @@ then
   ./build-docker ${ARGUMENTS}
 else
   umask 022
-  mkdir -p ${CWD}/${OUTPUT}
+  mkdir -p "${CWD}/${OUTPUT}"
+  cd "${CWD}/${INPUT}"
   env -i LC_CTYPE=C.UTF-8 PATH="/usr/sbin:/sbin:$PATH" \
     vmdb2 \
       --output "$CWD/$OUTPUT/$NAME.img" \
@@ -124,4 +125,5 @@ else
   build_pid=$!
   sleep 1
   tail -f -n +0 --pid=$build_pid $CWD/$OUTPUT/$NAME.log
+  cd "${CWD}"
 fi
