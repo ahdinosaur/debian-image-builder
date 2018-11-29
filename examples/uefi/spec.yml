@@ -1,0 +1,47 @@
+steps:
+  - mkimg: "{{ output }}"
+    size: 4G
+
+  - mklabel: gpt
+    device: "{{ output }}"
+
+  - mkpart: primary
+    device: "{{ output }}"
+    start: 0%
+    end: 1G
+    part-tag: efi-part
+
+  - mkpart: primary
+    device: "{{ output }}"
+    start: 1G
+    end: 100%
+    part-tag: root-part
+
+  - mkfs: vfat
+    partition: efi-part
+
+  - mkfs: ext4
+    partition: root-part
+
+  - mount: root-part
+    fs-tag: root-fs
+
+  - unpack-rootfs: root-fs
+
+  - debootstrap: stretch
+    mirror: http://deb.debian.org/debian
+    target: root-fs
+    unless: rootfs_unpacked
+
+  - apt: install
+    packages:
+      - linux-image-amd64
+    fs-tag: root-fs
+    unless: rootfs_unpacked
+
+  - cache-rootfs: root-fs
+    unless: rootfs_unpacked
+
+  - grub: uefi
+    rootfs: root-fs
+    efi-part: efi-part

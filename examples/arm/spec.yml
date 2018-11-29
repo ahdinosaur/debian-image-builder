@@ -1,0 +1,28 @@
+steps:
+  - mkimg: "{{ output }}"
+    size: 1500M
+
+  - mklabel: gpt
+    device: "{{ output }}"
+
+  - mkpart: primary
+    device: "{{ output }}"
+    start: 0%
+    end: 100%
+    part-tag: root-part
+
+  - mkfs: ext4
+    partition: root-part
+
+  - mount: root-part
+    fs-tag: root-fs
+
+  - qemu-debootstrap: stretch
+    mirror: http://deb.debian.org/debian
+    target: root-fs
+    arch: arm64
+
+  - apt: install
+    packages:
+      - linux-image-arm64
+    fs-tag: root-fs

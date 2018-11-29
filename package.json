@@ -7,7 +7,10 @@
     "example": "examples"
   },
   "scripts": {
-    "example": "./build --docker --input examples/simple --output output"
+    "example": "npm run example:simple",
+    "example:simple": "./build --docker --input examples/simple --output output",
+    "example:uefi": "./build --docker --input examples/uefi --output output",
+    "example:arm": "./build --docker --input examples/arm --output output"
   },
   "repository": {
     "type": "git",
