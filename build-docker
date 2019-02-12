@@ -2,6 +2,8 @@
 
 CWD="$(pwd)"
 ARGUMENTS="$@"
+# https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
+DIRNAME="$(dirname "$(readlink -f "$0")")"
 
 DOCKER="docker"
 set +e
@@ -74,7 +76,11 @@ if [ "$CONTAINER_EXISTS" != "" ]; then
   $DOCKER rm -v "${CONTAINER_NAME}"
 fi
 
-$DOCKER build -t debian_image_builder .
+$DOCKER build \
+  -t debian_image_builder \
+  -f ${DIRNAME}/Dockerfile \
+  ${DIRNAME}
+
 
 echo $INPUT
 trap "echo 'got CTRL+C... please wait 5s'; $DOCKER stop -t 5 ${CONTAINER_NAME}" SIGINT SIGTERM
