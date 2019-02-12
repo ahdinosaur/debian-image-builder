@@ -17,7 +17,7 @@ steps:
   - mount: root-part
     fs-tag: root-fs
 
-  - qemu-debootstrap: stretch
+  - debootstrap: stretch
     mirror: http://deb.debian.org/debian
     target: root-fs
     arch: arm64
@@ -26,3 +26,8 @@ steps:
     packages:
       - linux-image-arm64
     fs-tag: root-fs
+
+  - shell: |
+      echo Disk usage of this installation:
+      du -sh "$ROOT"
+    root-fs: root-fs

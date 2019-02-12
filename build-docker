@@ -83,7 +83,7 @@ time $DOCKER run --name "${CONTAINER_NAME}" --privileged \
   -v "${CWD}/${INPUT}:/app/input" \
   ${IMAGE_NAME} \
   bash -e -o errexit -o pipefail -o noclobber -o nounset -c "
-    dpkg-reconfigure qemu-user-static;
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure qemu-user-static;
     cd /app; ./build ${NEXT_ARGUMENTS};
   " || true &
 wait "$!"

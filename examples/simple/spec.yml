@@ -9,26 +9,33 @@ steps:
     device: "{{ output }}"
     start: 0%
     end: 100%
-    part-tag: root-part
+    tag: root-part
+
+  - kpartx: "{{ output }}"
 
   - mkfs: ext4
     partition: root-part
+    label: ROOT
 
   - mount: root-part
-    fs-tag: root-fs
 
-  - qemu-debootstrap: stretch
+  - debootstrap: stretch
     mirror: http://deb.debian.org/debian
-    target: root-fs
-    arch: amd64
+    target: root-part
 
   - apt: install
     packages:
       - linux-image-amd64
-    fs-tag: root-fs
+    tag: root-part
+
+  - shell: |
+      echo Disk usage of this installation:
+      du -sh "$ROOT"
+    root-fs: root-part
 
   # how to configure your image
   - shell: |
       echo "apatosaurus" > "${ROOT?}/etc/hostname"
       install -m 644 -o root -g root motd "${ROOT?}/etc/motd"
-    root-fs: root-fs
+    root-fs: root-part
+

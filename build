@@ -117,6 +117,7 @@ else
   umask 022
   mkdir -p "${CWD}/${OUTPUT}"
   cd "${CWD}/${INPUT}"
+  ls /app/vmdb2
   env -i LC_CTYPE=C.UTF-8 PATH="/usr/sbin:/sbin:$PATH" \
     vmdb2 \
       --output "$CWD/$OUTPUT/$NAME.img" \
