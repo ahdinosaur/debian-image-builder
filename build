@@ -120,6 +120,7 @@ else
   ls /app/vmdb2
   env -i LC_CTYPE=C.UTF-8 PATH="/usr/sbin:/sbin:$PATH" \
     vmdb2 \
+      --rootfs-tarball "${CWD}/${OUTPUT}/${NAME}.tar.gz" \
       --output "$CWD/$OUTPUT/$NAME.img" \
       --log "$CWD/$OUTPUT/$NAME.log" \
       "${CWD}/${INPUT}/spec.yml" &
